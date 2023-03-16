@@ -86,6 +86,7 @@ stages:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
+              slotName: 'staging'
               
           - task: AzureAppServiceManage@0
             inputs:
