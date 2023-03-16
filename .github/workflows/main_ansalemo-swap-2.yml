@@ -61,3 +61,15 @@ jobs:
           app-name: 'ansalemo-swap-2'
           slot-name: 'staging'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_38A6FD4B153243B58F7CA2FE3D2060BC }}
+
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Swap staging slot into production
+        id: slot_swap
+        run: |
+          az webapp deployment slot swap -g "ansalemo-rg" -n "ansalemo-swap-2" -s staging
+
+      - name: az cli logout
+        run: az logout
