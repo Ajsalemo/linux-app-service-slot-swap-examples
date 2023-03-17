@@ -47,7 +47,8 @@ jobs:
 
     - uses: azure/appservice-settings@v1
       with:
-        app-name: 'yoursite'
+        app-name: 'ansalemo-wafc-swap-gh'
+        slot-name: 'staging'
         app-settings-json: '[{ "WEBSITES_PORT": "8000" }]'
 
     - name: Deploy to Azure Web App
@@ -58,7 +59,7 @@ jobs:
         slot-name: 'staging'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_a52f5336aa2a49afb5fb42250ac36e18 }}
         images: 'ansalemoacr.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_d02287566f9549bfbbe91b48504c0cd7 }}/linux-app-service-slot-swap-examples:${{ github.sha }}'
-        
+
     - name: Swap staging slot into production
       id: slot_swap
       run: |
