@@ -46,6 +46,18 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'ansalemo-wafc-swap-gh'
-        slot-name: 'production'
+        slot-name: 'staging'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_a52f5336aa2a49afb5fb42250ac36e18 }}
         images: 'ansalemoacr.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_d02287566f9549bfbbe91b48504c0cd7 }}/linux-app-service-slot-swap-examples:${{ github.sha }}'
+
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Swap staging slot into production
+      id: slot_swap
+      run: |
+        az webapp deployment slot swap -g "ansalemo-rg" -n "ansalemo-wafc-swap-gh" -s staging
+
+    - name: az cli logout
+      run: az logout
