@@ -8,16 +8,16 @@ trigger:
 
 variables:
   # Azure Resource Manager connection created during pipeline creation
-  azureServiceConnectionId: '4682c1d4-327c-428a-9351-34cf7b2192ea'
+  azureServiceConnectionId: '00000000-0000-0000-0000-000000000000'
 
   # Web app name
-  webAppName: 'ansalemo-slot-swap-test'
+  webAppName: 'somesite'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
   # Environment name
-  environmentName: 'ansalemo-slot-swap-test'
+  environmentName: 'somesite'
 
   # Project root folder. Point to the folder containing manage.py file.
   projectRoot: $(System.DefaultWorkingDirectory)
@@ -80,7 +80,7 @@ stages:
             displayName: 'Use Python version'
 
           - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App : ansalemo-slot-swap-test'
+            displayName: 'Deploy Azure Web App : somesite'
             inputs:
               appType: webAppLinux
               azureSubscription: $(azureServiceConnectionId)
@@ -90,8 +90,8 @@ stages:
               
           - task: AzureAppServiceManage@0
             inputs:
-              azureSubscription: 'Ansalemo (4388fa06-bf66-4497-82c2-991ba75ecb97)'
+              azureSubscription: 'Somesub (00000000-0000-0000-0000-000000000000)'
               Action: 'Swap Slots'
-              WebAppName: 'ansalemo-slot-swap-test'
-              ResourceGroupName: 'ansalemo-rg'
+              WebAppName: 'somesite'
+              ResourceGroupName: 'some-rg'
               SourceSlot: 'staging'

@@ -10,9 +10,9 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'e0eb3cc0-82e7-4107-bd09-b6ab6a91f0f5'
-  imageRepository: 'ajsalemolinuxappserviceslotswapexamples'
-  containerRegistry: 'ansalemoacr.azurecr.io'
+  dockerRegistryServiceConnection: '00000000-0000-0000-0000-000000000000'
+  imageRepository: 'someimage'
+  containerRegistry: 'someacr.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
 
@@ -49,11 +49,11 @@ stages:
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
-        azureSubscription: 'Ansalemo(4388fa06-bf66-4497-82c2-991ba75ecb97)'
+        azureSubscription: 'Somesub(00000000-0000-0000-0000-000000000000)'
         appType: 'webAppContainer'
-        WebAppName: 'ansalemo-wafc-swap-gh'
+        WebAppName: 'somesite'
         deployToSlotOrASE: true
-        ResourceGroupName: 'ansalemo-rg'
+        ResourceGroupName: 'some-rg'
         SlotName: 'staging'
         DockerNamespace: '$(containerRegistry)'
         DockerRepository: '$(imageRepository)'
@@ -61,8 +61,8 @@ stages:
         
     - task: AzureAppServiceManage@0
       inputs:
-        azureSubscription: 'Ansalemo(4388fa06-bf66-4497-82c2-991ba75ecb97)'
+        azureSubscription: 'Somesub(00000000-0000-0000-0000-000000000000)'
         Action: 'Swap Slots'
-        WebAppName: 'ansalemo-wafc-swap-gh'
-        ResourceGroupName: 'ansalemo-rg'
+        WebAppName: 'somesite'
+        ResourceGroupName: 'some-rg'
         SourceSlot: 'staging'

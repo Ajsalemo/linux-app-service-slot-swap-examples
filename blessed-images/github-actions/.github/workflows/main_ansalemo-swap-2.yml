@@ -2,7 +2,7 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 # More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
 
-name: Build and deploy Python app to Azure Web App - ansalemo-swap-2
+name: Build and deploy Python app to Azure Web App - somesite
 
 on:
   push:
@@ -58,7 +58,7 @@ jobs:
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
-          app-name: 'ansalemo-swap-2'
+          app-name: 'somesite'
           slot-name: 'staging'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_38A6FD4B153243B58F7CA2FE3D2060BC }}
 
@@ -69,7 +69,7 @@ jobs:
       - name: Swap staging slot into production
         id: slot_swap
         run: |
-          az webapp deployment slot swap -g "ansalemo-rg" -n "ansalemo-swap-2" -s staging
+          az webapp deployment slot swap -g "some-rg" -n "somesite" -s staging
 
       - name: az cli logout
         run: az logout
